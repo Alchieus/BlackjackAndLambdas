@@ -34,10 +34,9 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
        // How it will be built and synthesized
        synthAction: SimpleSynthAction.standardNpmSynth({
          sourceArtifact,
-         cloudAssemblyArtifact,
-         installCommand: 'npm ci',         
+         cloudAssemblyArtifact,        
          // We need a build step to compile the TypeScript Lambda
-         buildCommand: 'cd cdkpipelines-demo && npm run build'
+         buildCommand: 'npm run build'
        }),
     });
 
