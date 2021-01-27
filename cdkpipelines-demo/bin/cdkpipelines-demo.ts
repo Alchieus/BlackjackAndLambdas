@@ -1,15 +1,24 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { CdkpipelinesDemoStack } from '../lib/cdkpipelines-demo-stack';
+//import { CdkpipelinesDemoStack } from '../lib/cdkpipelines-demo-stack';
+
+import { CdkpipelinesDemoPipelineStack } from '../lib/cdkpipelines-demo-pipeline-stack';
 
 const app = new cdk.App();
-const MyCodePipeline = new CdkpipelinesDemoStack(app, 'CdkpipelinesDemoStack',{
+// const MyCodePipeline = new CdkpipelinesDemoStack(app, 'CdkpipelinesDemoStack',{
+//     env:{
+//         account: "881385135648",
+//         region: "us-east-1"
+//     }
+// });
+
+const MyCodePipeline = new CdkpipelinesDemoPipelineStack(app, 'CdkpipelinesDemoPipelineStack', {
     env:{
         account: "881385135648",
         region: "us-east-1"
     }
-});
+  });
 
 cdk.Tags.of(MyCodePipeline).add('Team', 'DSS-DM-Skynet');
 cdk.Tags.of(MyCodePipeline).add('App', 'SkynetLambdaCodPipeline');
