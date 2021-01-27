@@ -28,6 +28,7 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
         oauthToken: SecretValue.secretsManager('AlchieusBlackJackAndLambdasAwsLabAccessToken'),
         owner: 'Alchieus',
         repo: 'BlackjackAndLambdas',
+        branch: "main"
       }),
 
        // How it will be built and synthesized
