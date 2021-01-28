@@ -19,7 +19,7 @@ exports.handler = async ( event: APIGatewayProxyEvent): Promise<APIGatewayProxyR
         return {
             statusCode: 307,
             headers:{
-                Location: "https://Google.com"
+                Location: "https://www.yahoo.com/"
             },
             body:"You are being redirected to a default sight."
         };
