@@ -1,7 +1,7 @@
 import { Artifact, IAction} from '@aws-cdk/aws-codepipeline';
 import { GitHubSourceAction, ManualApprovalAction} from '@aws-cdk/aws-codepipeline-actions';
 import { Construct, SecretValue, Stack, StackProps } from '@aws-cdk/core';
-import { CdkPipeline, SimpleSynthAction } from "@aws-cdk/pipelines";
+import { CdkPipeline, SimpleSynthAction, ShellScriptAction } from "@aws-cdk/pipelines";
 import { CdkpipelinesDemoStage } from "./cdkpipelines-demo-stage"
 
 /**
@@ -44,9 +44,10 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
 
     // This is where we add the application stages
     // ...
-    const preprodStage = pipeline.addApplicationStage(new CdkpipelinesDemoStage(this, "Pre-Prod", {
+    const preprod = new CdkpipelinesDemoStage(this, "Pre-Prod", {
       env:props?.env,
-    }));
+    });
+    const preprodStage = pipeline.addApplicationStage(preprod);
 
     const actions: IAction[] = [];
     actions.push(new ManualApprovalAction({
@@ -56,5 +57,17 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
     }));
 
     preprodStage.addActions(...actions);
+
+    preprodStage.addActions(new ShellScriptAction({
+      actionName:"RunTests",
+      //runOrder: preprodStage.nextSequentialRunOrder(),
+      useOutputs:{
+        ENDPOINT_URL: pipeline.stackOutput(preprod.urlOutput)
+      },
+      commands: [
+        'curl -Ssf $ENDPOINT_URL',
+        'curl -Ssf $ENDPOINT_URL?redirect=http://www.bing.com'
+      ]
+    }));
   }
 }
