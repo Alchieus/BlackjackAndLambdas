@@ -66,7 +66,7 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
       },
       commands: [
         'curl -Ssf $ENDPOINT_URL',
-        'curl -Ssf $ENDPOINT_URL?redirect=http://www.bing.com'
+        'curl -Ssf $ENDPOINT_URL?redirect=https://imgur.com/gallery/ZkSBscv'
       ]
     }));
   }
