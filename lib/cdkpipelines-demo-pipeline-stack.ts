@@ -26,7 +26,7 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
       sourceAction: new GitHubSourceAction({
         actionName: 'GitHub',
         output: sourceArtifact,
-        oauthToken: SecretValue.secretsManager('AlchieusBlackJackAndLambdasAwsLabAccessToken'),
+        oauthToken: SecretValue.secretsManager('AlchieusBlackJackAndLambdas/githubToken'),
         owner: 'Alchieus',
         repo: 'BlackjackAndLambdas',
         branch: "main"

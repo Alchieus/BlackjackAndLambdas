@@ -2,8 +2,8 @@ import {
     APIGatewayProxyEvent, 
     APIGatewayProxyResult
   } from "aws-lambda";
-/** the queue and redirect lambda is a simple url parameter parser that does two things
- * 1: parse querystring parameters into a queuemessage to be queued
+/** the publish and redirect lambda is a simple url parameter parser that does two things
+ * 1: parse querystring parameters into a topic message to be published.  multiple subscribers could process this message for any number of reasons.
  *      a: CampaignName
  *      b: LeadType
  *      c: GlobalCustomerId
@@ -12,7 +12,7 @@ import {
  */
 exports.handler = async ( event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     console.log(`EVENT: ${JSON.stringify(event, null, 2)}`);
-    //TODO generate and Queue the SQSMessage
+    //TODO generate and publish to SNS
 
     //redirect
     if(event.queryStringParameters?.redirect === undefined){
